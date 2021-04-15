@@ -1,12 +1,19 @@
-
-3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WebServer.h>
 #include <EEPROM.h>
+#include <ThingSpeak.h>
+WiFiClient client;
 
-    //Variables
-    int i = 0;
+String thingSpeakAddress= "http://api.thingspeak.com/update?";
+String writeAPIKey;
+String tsfield1Name;
+String request_string;
+
+HTTPClient http;
+//Variables
+int i = 0;
+int  j;
 int statusCode;
 const char *ssid = "text";
 const char *passphrase = "text";
@@ -22,7 +29,8 @@ void setupAP(void);
 ESP8266WebServer server(80);
 
 void setup()
-{
+{   j = 0;
+    ThingSpeak.begin(client);
 
     Serial.begin(115200); //Initialising if(DEBUG)Serial Monitor
     Serial.println();
@@ -31,6 +39,7 @@ void setup()
     EEPROM.begin(512); //Initialasing EEPROM
     delay(10);
     pinMode(LED_BUILTIN, OUTPUT);
+    pinMode(2, OUTPUT);
     Serial.println();
     Serial.println();
     Serial.println("Startup");
@@ -78,23 +87,35 @@ void setup()
         delay(100);
         server.handleClient();
     }
-}
+    }
 void loop()
 {
-    if ((WiFi.status() == WL_CONNECTED))
-    {
+    j = (ThingSpeak.readIntField(1347213,1,"SJGD1JD46FSIMF54"));
+    if (j == 0) {
+      digitalWrite(2,HIGH);
 
-        for (int i = 0; i < 10; i++)
-        {
-            digitalWrite(LED_BUILTIN, HIGH);
-            delay(1000);
-            digitalWrite(LED_BUILTIN, LOW);
-            delay(1000);
-        }
     }
-    else
-    {
+    if (j == 1) {
+      digitalWrite(2,LOW);
+
     }
+    delay(15000);
+    if (client.connect("api.thingspeak.com",80)) {
+      request_string = thingSpeakAddress;
+      request_string += "key="; 
+      request_string += "X9HAUUWEA5WXIVKT";
+      request_string += "&";
+      request_string += "field1";
+      request_string += "=";
+      request_string += (random(0,100));
+      http.begin(request_string);
+      http.GET();
+      http.end();
+      Serial.println("Donnees envoyer");
+
+    }
+    delay(15000);
+   
 }
 
 //-------- Fuctions used for WiFi credentials saving and connecting to it which you do not need to change
@@ -159,20 +180,13 @@ void setupAP(void)
         }
     }
     Serial.println("");
-    st = "<ol>";
+    st += String(n);
     for (int i = 0; i < n; ++i)
     {
         // Print SSID and RSSI for each network found
-        st += "<li>";
+        st += ",";
         st += WiFi.SSID(i);
-        st += " (";
-        st += WiFi.RSSI(i);
-
-        st += ")";
-        st += (WiFi.encryptionType(i) == ENC_TYPE_NONE) ? " " : "*";
-        st += "</li>";
     }
-    st += "</ol>";
     delay(100);
     WiFi.softAP("how2electronics", "");
     Serial.println("softap");
@@ -187,8 +201,8 @@ void createWebServer()
         server.on("/", []() {
             IPAddress ip = WiFi.softAPIP();
             String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
-            content = ipStr;
-            server.send(200, "application/json", content);
+            content = ipStr + ','+ st;
+            server.send(200, "text/plain", content);  
         });
 
         server.on("/setting", []() {
@@ -225,7 +239,7 @@ void createWebServer()
                 content = "{\"Success\":\"saved to eeprom... reset to boot into new wifi\"}";
                 statusCode = 200;
                 server.send(statusCode, "application/json", content);
-                delay(5000)
+                delay(5000);
                 ESP.reset();
             }
             else

@@ -33,40 +33,43 @@ const AnswerConnectionAlert = (ReponseDescription) =>
     );
 //Cette fonction envoie une requête http (/setting) au point accès aui contient le SSID et Mot de passe
 // entrés par l'utilisateur. la réponse et l'affirmation ou non de  la connection avec le WIFI.
-function submitForm(id, password) {
-    const xhttp2 = new XMLHttpRequest();
+async function submitForm(id, password) {
+    //const xhttp2 = new XMLHttpRequest();
     id = id.replace(/ /g, "+");
-    const url = "http://192.168.4.1/setting?ssid=" + id + "&pass=" + password;
+    let url = "http://192.168.4.1/setting?ssid=" + id + "&pass=" + password;
     if (id === "" && password === "")
         url = "http://192.168.4.1/setting"
-    xhttp2.open("GET", url);
-    xhttp2.send();
+        const response = await fetch(url)
+        //xhttp2.open("GET", url);
+        //xhttp2.send();
     console.log(url);
-    let ReponseDescription;
-    xhttp2.onreadystatechange = (e) => {
-        console.log(xhttp2.responseText);
-        ReponseDescription = xhttp2.responseText;
-    }
+    let ReponseDescription = await response.text();
+    // xhttp2.onreadystatechange = (e) => {
+    //     console.log(xhttp2.responseText);
+    //     ReponseDescription = xhttp2.responseText;
+    // }
+
     AnswerConnectionAlert(ReponseDescription);
 }
+const getData = async () => {
+    const response = await fetch("https://reqres.in/api/user/2")
+    const data = await response.text();
+    console.log(data,typeof data)
+}
+
 //cette fonction envoie une requête http (/) au point accès
 // et répond par la liste des réseaux sans fils dans les environs.
 let NetworkData;
-async function scan(setSSIDArray) {
-    // const xhttp2 = new XMLHttpRequest();
-    const url = "http://192.168.4.1/";
-    // xhttp2.open("GET", url);
-    const response = await fetch(url)
-    // xhttp2.send();
-    console.log();
-    console.log(url);
-    NetworkData = await response.text();
-    // xhttp2.onreadystatechange = (e) => {
-    //     NetworkData = xhttp2.responseText;
-    //     console.log(1, NetworkData, typeof NetworkData);
-    // }
-    console.log(2, NetworkData, typeof NetworkData);
-    if (typeof NetworkData !== "undefined") {
+function scan(setSSIDArray) {
+     const xhttp2 = new XMLHttpRequest();
+     const url = "http://192.168.4.1/";
+     xhttp2.open("GET", url);
+     xhttp2.send();
+    xhttp2.onreadystatechange = (e) => {
+        NetworkData = xhttp2.responseText;
+        console.log(1, NetworkData);
+    }
+    if (typeof NetworkData !== "undefined" &&  NetworkData.toUpperCase().includes('FAILED') === false) {
         console.log(1, NetworkData);
         let NetworkDataArray, NetworkNumb, IP, SSIDArray;
         NetworkDataArray = NetworkData.split(',');
@@ -74,9 +77,6 @@ async function scan(setSSIDArray) {
         NetworkNumb = NetworkDataArray[1];
         SSIDArray = NetworkDataArray.slice(2);
         if (typeof SSIDArray !== "undefined") {
-            console.log(NetworkData);
-            console.log(NetworkNumb, typeof NetworkNumb);
-            console.log(SSIDArray, typeof SSIDArray);
             setSSIDArray(SSIDArray);
         } else {
             NOWIFIAlert();
@@ -88,11 +88,6 @@ async function scan(setSSIDArray) {
     }
 }
 
-const getData = async () => {
-    const response = await fetch("https://reqres.in/api/user/2")
-    const data = await response.text();
-    console.log(data,typeof data)
-}
 
 
 function LoginForm({ navigation }) {

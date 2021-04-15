@@ -31,13 +31,10 @@ function OnOffScreen({ navigation }) {
   const [flashMessage, setMessage] = useState('Reponse du Serveur');
   return (
     <View style={styles.container}>
-      <View style={styles.heading}>
-        <Text style={styles.heading}>Smart Plug</Text>
-      </View>
       <Button title="ON" onPress={() => fonctionOn(setMessage)}></Button>
       <View style={styles.br}></View>
       <Button title="OFF" onPress={() => fonctionOff(setMessage)}></Button>
-      <View style={styles.message}><Text style={{ color: '#fff', fontSize: 20 }}>{flashMessage == 0 ? "Réessayer" : "Requête a réussie"}</Text></View>
+      <View style={styles.message}><Text style={{ color: '#fff', fontSize: 20 }}>{flashMessage }</Text></View>
       <View style={styles.br}></View>
       <Button title="SUIVANT" onPress={() => navigation.navigate("Etape 3")} />
     </View>
@@ -54,19 +51,11 @@ const styles = StyleSheet.create({
   br: {
     margin: 10,
   },
-  heading: {
-    alignItems: 'center',
-    color: '#ff6347cc',
-    fontSize: 30,
-    marginBottom: 20,
-    fontFamily: 'sans-serif-medium',
-
-  },
   message: {
     width: 215,
     height: 100,
     marginTop: 20,
-    backgroundColor: '#ff6347cc',
+    backgroundColor: '#6cb9e0',
     alignItems: 'center',
     justifyContent: 'center',
   }
