@@ -1,21 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
 
-export default function App() {
+import OnOffScreen from './app/OnOffScreen';
+import LoginForm from './app/LoginForm'
+import MyCharts from './app/MyCharts';
+
+import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native'
+
+const Stack = createStackNavigator();
+const StackNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Etape 1" component={LoginForm} />
+    <Stack.Screen name="Etape 2" component={OnOffScreen} />
+    <Stack.Screen name="Etape 3" component={MyCharts} />
+  </Stack.Navigator>
+);
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
