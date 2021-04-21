@@ -135,13 +135,15 @@ function LoginForm({ navigation }) {
             <Button title="ENVOYER" onPress={submitForm.bind(this, id, password)} />
             <View style={{ margin: 10 }}></View>
 
-            <Button title="SCAN"
+            <Button title="SCAN" color='orange'
                 onPress={scan.bind(this, setSSIDArray)}
                 // onPress={getData}
             />
             <View style={{ margin: 10 }}></View>
 
-            <Button title="SUIVANT" onPress={() => navigation.navigate("Etape 2")} />
+            <Button title="SUIVANT" 
+            onPress={() => navigation.navigate("Etape 2")} 
+            />
         </View>
     );
 }

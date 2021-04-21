@@ -1,0 +1,2 @@
+1. expo publish --release-channel staging
+=> to publish app in expo store
