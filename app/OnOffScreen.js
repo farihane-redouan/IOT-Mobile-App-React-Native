@@ -37,6 +37,9 @@ function OnOffScreen({ navigation }) {
       <View style={styles.message}><Text style={{ color: '#fff', fontSize: 20 }}>{flashMessage }</Text></View>
       <View style={styles.br}></View>
       <Button title="SUIVANT" onPress={() => navigation.navigate("Etape 3")} />
+
+    
+
     </View>
   );
 }

@@ -86,9 +86,7 @@ function scan(setSSIDArray) {
         ESPWIFIAlert();
         console.log("SVP Connecter au Point d'accès WIFI-ESP!");
     }
-}
-
-
+}   
 
 function LoginForm({ navigation }) {
     const [id, onChangeId] = useState();
@@ -134,7 +132,8 @@ function LoginForm({ navigation }) {
 
             <Button title="ENVOYER" onPress={submitForm.bind(this, id, password)} />
             <View style={{ margin: 10 }}></View>
-
+            
+            {/* working on SCAN */}
             <Button title="SCAN" color='orange'
                 onPress={scan.bind(this, setSSIDArray)}
                 // onPress={getData}
@@ -142,7 +141,7 @@ function LoginForm({ navigation }) {
             <View style={{ margin: 10 }}></View>
 
             <Button title="SUIVANT" 
-            onPress={() => navigation.navigate("Etape 2")} 
+            onPress={() => navigation.navigate('WifiScreen')} 
             />
         </View>
     );

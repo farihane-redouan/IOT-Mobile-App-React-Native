@@ -1,21 +1,25 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+
+import AppText from "../components/AppText";
+import AppHeading from "../components/AppHeading";
+
+import colors from "../config/colors";
+import AppControl from "../components/AppControl";
 
 function ConnectScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text> Se connecter à l'appareil</Text>
-      <Text> Attendez quelques secondes</Text>
-      <Text> Loading</Text>
-      <Text
-        onPress={() => navigation.navigate("AccessPScreen")}
-        style={{ marginTop: "50px" }}
-      >
-        Suivant
-      </Text>
-      <Text onPress={() => navigation.navigate("PlugingScreen")}>
-        Precedant
-      </Text>
+      <AppHeading>Se connecter à l'appareil</AppHeading>
+      <AppText> Attendez quelques secondes </AppText>
+
+      <ActivityIndicator style={styles.loading} size="large" color="#999999" />
+
+      <AppControl
+        navigation={navigation}
+        nextScreen="AccessPScreen"
+        previousScreen="PlugingScreen"
+      />
     </View>
   );
 }
@@ -23,7 +27,12 @@ function ConnectScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#4682b4",
+    backgroundColor: colors.white,
+    alignItems: "center",
+  },
+  loading: {
+    position: "absolute",
+    top: 480,
   },
 });
 

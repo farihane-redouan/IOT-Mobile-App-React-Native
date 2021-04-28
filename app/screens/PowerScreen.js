@@ -1,23 +1,16 @@
-import React from 'react';
-import { View,Text, StyleSheet } from 'react-native';
+import React from "react";
+import StatScreen from "./StatScreen";
 
-function PowerScreen({navigation}) {
-    return (
-        <View style={styles.container}>  
-        <Text style={{padding:'10px',borderBottomWidth:'2px'}}> Power  maintenant</Text>
-        <Text> Power Chart</Text>
-        <Text onPress={()=> navigation.navigate("VoltageScreen")} style={{marginTop:'50px'}}> Suivant</Text>
-        <Text onPress={()=> navigation.navigate("EnergyScreen")} > Precedant</Text>
-        </View>
-    );
+function PowerScreen({ navigation }) {
+  return (
+    <StatScreen
+      navigation={navigation}
+      title="Puissance"
+      DataNow="150Watt"
+      nextScreen="VoltageScreen"
+      previousScreen="EnergyScreen"
+    />
+  );
 }
-
-const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        backgroundColor:'#98FB98',
-    }
-})
-
 
 export default PowerScreen;

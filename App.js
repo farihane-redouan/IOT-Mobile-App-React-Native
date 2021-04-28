@@ -1,74 +1,91 @@
-import React from 'react';
+import React, { useState } from "react";
+import { Text, View } from "react-native";
 
-//import OnOffScreen from './app/OnOffScreen';
-//import LoginForm from './app/LoginForm'
-//import MyCharts from './app/MyCharts';
+import WelcomeScreen from "./app/screens/WelcomeScreen";
+import PlugingScreen from "./app/screens/PlugingScreen";
+import ConnectScreen from "./app/screens/ConnectScreen";
+import AccessPScreen from "./app/screens/AccessPScreen";
+import WifiScreen from "./app/screens/WifiScreen";
+import OnOffScreen from "./app//screens/OnOffScreen";
+import EnergyScreen from "./app/screens/EnergyScreen";
+import PowerScreen from "./app/screens/PowerScreen";
+import VoltageScreen from "./app/screens/VoltageScreen";
+import CurrentScreen from "./app/screens/CurrentScreen";
+import TestScreen from "./app/screens/TestScreen";
+import  MyCharts  from "./app/MyCharts";
 
-import { createStackNavigator } from '@react-navigation/stack'
-import { NavigationContainer } from '@react-navigation/native'
+//Chargement des fonts externs:
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
 
-import WelcomeScreen from './app/screens/WelcomeScreen';
-import PlugingScreen from './app/screens/PlugingScreen';
-import ConnectScreen from './app/screens/ConnectScreen';
-import AccessPScreen from './app/screens/AccessPScreen';
-import WifiScreen from './app/screens/WifiScreen';
-import OnOffScreen from './app/screens/OnOffScreen';
-import EnergyScreen from './app/screens/EnergyScreen';
-import PowerScreen from './app/screens/PowerScreen';
-import VoltageScreen from './app/screens/VoltageScreen';
-import CurrentScreen from './app/screens/CurrentScreen';
-import TestScreen from './app/screens/TestScreen';
+const fetchFont = () => {
+  return Font.loadAsync({
+    RalewayEL: require("./app/assets/fonts/Raleway-ExtraLight.ttf"),
+    RalewayM: require("./app/assets/fonts/Raleway-Medium.ttf"),
+    RalewayL: require("./app/assets/fonts/Raleway-Light.ttf"),
+    Surfer: require("./app/assets/fonts/OriginalSurfer-Regular.ttf"),
+  });
+};
+
+// Navigation
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import StatScreen from "./app/screens/StatScreen";
+import LoginForm from "./app/LoginForm";
 
 const Stack = createStackNavigator();
-
 const StackNavigator = () => (
-  <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="TestScreen">
-    <Stack.Screen name="TestScreen" component={TestScreen}/>
-    <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}/>
-    <Stack.Screen name="PlugingScreen" component={PlugingScreen}/>
-    <Stack.Screen name="ConnectScreen" component={ConnectScreen}/>
-    <Stack.Screen name="AccessPScreen" component={AccessPScreen}/>
-    <Stack.Screen name="WifiScreen" component={WifiScreen}/>
-    <Stack.Screen name="OnOffScreen" component={OnOffScreen}/>
-    <Stack.Screen name="EnergyScreen" component={EnergyScreen}/>
-    <Stack.Screen name="PowerScreen" component={PowerScreen}/>
-    <Stack.Screen name="VoltageScreen" component={VoltageScreen}/>
-    <Stack.Screen name="CurrentScreen" component={CurrentScreen}/>
-  </Stack.Navigator>
-);
-
-/*
-const StackNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Etape 1"
-     component={LoginForm}
-     options={{title: ""}} />
-    <Stack.Screen 
-    name="Etape 2" 
-    component={OnOffScreen} 
-    options={{title: ""}} />
-    <Stack.Screen 
-    name="Etape 3" 
-    component={MyCharts} 
-    options={{title: ""}} />
+  <Stack.Navigator
+    screenOptions={{ headerShown: false }}
+    initialRouteName="OnOffScreen"
+  >
+    <Stack.Screen name="LoginForm" component={LoginForm} />
+    <Stack.Screen name="MyCharts" component={MyCharts} />
+    <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+    <Stack.Screen name="PlugingScreen" component={PlugingScreen} />
+    <Stack.Screen name="ConnectScreen" component={ConnectScreen} />
+    <Stack.Screen name="AccessPScreen" component={AccessPScreen} />
+    <Stack.Screen name="WifiScreen" component={WifiScreen} />
+    <Stack.Screen name="OnOffScreen" component={OnOffScreen} />
+    <Stack.Screen name="EnergyScreen" component={EnergyScreen} />
+    <Stack.Screen name="PowerScreen" component={PowerScreen} />
+    <Stack.Screen name="VoltageScreen" component={VoltageScreen} />
+    <Stack.Screen name="CurrentScreen" component={CurrentScreen} />
   </Stack.Navigator>
 );
 
 const App = () => {
+  //S'il y a un problème avec les fonts.
+  const [fontLoaded, setfontLoaded] = useState(false);
+  if (!fontLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFont}
+        onError={() => console.log("Error")}
+        onFinish={() => setfontLoaded(true)}
+      />
+    );
+  }
+
   return (
-     <NavigationContainer>
+    <NavigationContainer>
       <StackNavigator />
     </NavigationContainer>
   );
 };
-*/
 
-const App = () => {
-  return (
-    <NavigationContainer>
-    <StackNavigator />
-  </NavigationContainer>
-  );
-};
-  
 export default App;
+
+/*   return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "tomato",
+      }}
+    >
+      <Text style={{fontFamily:'Surfer', fontSize:20}}>Hello Oussama</Text>
+      <AppText>My Names is Oussama</AppText>
+    </View>
+  );*/
