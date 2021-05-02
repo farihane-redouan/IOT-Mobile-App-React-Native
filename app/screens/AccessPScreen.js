@@ -15,7 +15,7 @@ function AccessPScreen({ navigation }) {
         Connectez-vous au wi-fi de l'appareil, puis revenez à l'application
       </AppText>
       <Wifi/>
-      <AppButton title="Scan"/>
+      <AppButton title="Suivant"/>
       <AppControl navigation={navigation} nextScreen="WifiScreen" previousScreen="ConnectScreen" />
     </View>
   );

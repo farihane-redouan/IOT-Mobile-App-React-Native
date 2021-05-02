@@ -1,8 +1,14 @@
 import React from "react";
-import { Text, View, StyleSheet, Image ,ActivityIndicator} from "react-native";
+import { Text, View, StyleSheet, Image ,ActivityIndicator, TouchableOpacity} from "react-native";
 
 import AppControl from "../components/AppControl";
 import colors from "../config/colors";
+
+import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from '@expo/vector-icons';
+import { FontAwesome5 } from "@expo/vector-icons";
+import AppButton from "../components/AppButton";
+import fonts from "../config/fonts";
 
 
 function WelcomeScreen({ navigation }) {
@@ -12,8 +18,15 @@ function WelcomeScreen({ navigation }) {
       <Image source={require('../assets/logo.png')}/>
       <Text style={styles.logoDescription}>Plateforme de recherche et de formation en énergies solaires</Text>
       </View>
-      <ActivityIndicator style={styles.loading} size="large" color="#999999" animating={true}/>
-      <AppControl navigation={navigation} nextScreen="OnOffScreen" previousScreen="PlugingScreen" />
+
+      <View style={styles.control}>
+      <TouchableOpacity style={styles.Done}  onPress={() => navigation.push("OnOffScreen")}>
+      <Text style={styles.BtnText}> Config est faite</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.Done,{backgroundColor:'#d00'}]}  onPress={() => navigation.navigate("PlugingScreen")}>
+      <Text style={[styles.BtnText, {color:'#fff'}]}>Pas encore</Text>
+      </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -27,10 +40,6 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center'
   },
-  loading:{
-    position:'absolute',
-    top:500,
-   },
    logoContainer:{
     position:"absolute",
     top:100,
@@ -43,8 +52,31 @@ const styles = StyleSheet.create({
      paddingTop:10,
      fontSize:15,
      width:200,
-
+   },
+   control:{
+     height:150,
+     width:'100%',
+     position:'absolute',
+     top:500,
+     flexDirection:'column',
+     justifyContent:'center',
+     alignItems:'center'
+   },
+   Done:{
+    backgroundColor:'#0e0',
+        borderRadius:15,
+        padding:8,
+        width:170,
+        marginBottom:10,
+   },
+   BtnText:{
+    color:colors.black,
+    fontSize:14,
+    textAlign:'center',
+    fontFamily:fonts.RalewayM,
+    textTransform:'uppercase',
    }
+
 });
 
 export default WelcomeScreen;

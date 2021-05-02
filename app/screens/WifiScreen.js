@@ -21,7 +21,7 @@ function WifiScreen({ navigation }) {
       <AppText>
         Scannez puis choisissez votre réseau Wi-Fi et entrez son mot de passe.
       </AppText>
-      {SSIDArray.length !== 1 ? (
+     
         <View style={{ position: "absolute", top: 400, flex:1, }}>
           <View style={styles.picker}>
             <Picker selectedValue={SSID} onValueChange={setSSID} mode="dialog">
@@ -32,16 +32,18 @@ function WifiScreen({ navigation }) {
           </View>
           <AppTextInput />
         </View>
-      ) : null}
+     
       <AppButton
-        title="Scan"
+        title="Actualiser"
         style={{ backgroundColor: "red", top: 580 }}
+        styleText={{color:colors.white}}
         onPress={scan.bind(this, setSSIDArray)}
       />
       <AppButton
-        title="Envoyer"
+        title="Connecter"
         style={{ top: 650 }}
-        onPress={submitForm.bind(this, SSID, password)}
+        // onPress={submitForm.bind(this, SSID, password)}
+        onPress={() => navigation.navigate('OnOffScreen')}
       />
 
       <AppControl navigation={navigation} previousScreen="AccessPScreen" />
@@ -97,6 +99,7 @@ async function submitForm(id, password) {
   // }
 
   AnswerConnectionAlert(ReponseDescription);
+  
 }
 const getData = async () => {
   const response = await fetch("https://reqres.in/api/user/2");

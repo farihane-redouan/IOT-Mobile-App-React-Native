@@ -5,6 +5,7 @@ import AppStatNow from "../components/AppStatNow";
 import AChart from "../components/AppChart";
 
 import { FontAwesome5 } from "@expo/vector-icons";
+import AppHeader from "../components/AppHeader";
 
 function StatScreen({
   navigation,
@@ -15,9 +16,7 @@ function StatScreen({
 }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate("OnOffScreen")}>
-        <FontAwesome5 name="home" size={24} color="black" />
-      </TouchableOpacity>
+      <AppHeader navigation={navigation} />
 
       <View style={styles.now}>
         <AppStatNow
@@ -30,7 +29,7 @@ function StatScreen({
       </View>
 
       <View style={styles.chart}>
-        <AChart title={title} />
+        <AChart title={title} navigation={navigation} />
       </View>
     </View>
   );
@@ -50,7 +49,6 @@ const styles = StyleSheet.create({
     },
     chart:{
         flex:6,
-        width:'100%',
     }
 });
 

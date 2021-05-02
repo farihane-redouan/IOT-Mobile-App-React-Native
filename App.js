@@ -76,16 +76,3 @@ const App = () => {
 
 export default App;
 
-/*   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "tomato",
-      }}
-    >
-      <Text style={{fontFamily:'Surfer', fontSize:20}}>Hello Oussama</Text>
-      <AppText>My Names is Oussama</AppText>
-    </View>
-  );*/

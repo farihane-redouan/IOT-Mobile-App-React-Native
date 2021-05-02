@@ -10,10 +10,10 @@ import AppControl from "../components/AppControl";
 function ConnectScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <AppHeading>Se connecter à l'appareil</AppHeading>
+      <AppHeading>Déctecter l'appareil</AppHeading>
       <AppText> Attendez quelques secondes </AppText>
 
-      <ActivityIndicator style={styles.loading} size="large" color="#999999" />
+      <ActivityIndicator style={styles.loading} size="large" color="#0f0" />
 
       <AppControl
         navigation={navigation}

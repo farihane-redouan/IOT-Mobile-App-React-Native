@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, Dimensions, StyleSheet } from "react-native";
 import {
   LineChart,
@@ -46,9 +46,19 @@ function actualiser(setDataX, setDataY) {
     });
 }
 
-function AChart({ title }) {
+function AChart({ title,navigation }) {
   const [DataX, setDataX] = useState([1, 1, 1, 1, 1, 1, 1]);
   const [DataY, setDataY] = useState([0, 0, 0, 0, 0, 0, 0]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      actualiser(setDataX, setDataY)
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+
   return (
     <View style={styles.container}>
       <LineChart
@@ -60,15 +70,15 @@ function AChart({ title }) {
             },
           ],
         }}
-        width={Dimensions.get("window").width} // from react-native
-        height={220}
+        width={Dimensions.get("window").width*0.95} // from react-native
+        height={250}
         yAxisLabel=""
         yAxisSuffix=""
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
-          backgroundColor: "#e26a00",
-          backgroundGradientFrom: "#fb8c00",
-          backgroundGradientTo: "#ffa726",
+          backgroundColor: "#00ff00",
+          backgroundGradientFrom: "#40ff40",
+          backgroundGradientTo: "#00cc00",
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -78,7 +88,7 @@ function AChart({ title }) {
           propsForDots: {
             r: "6",
             strokeWidth: "2",
-            stroke: "#ffa726",
+            stroke: "#808080",
           },
         }}
         bezier
@@ -99,6 +109,7 @@ function AChart({ title }) {
 
 const styles = StyleSheet.create({
   container: {
+    flex:1,
     alignItems: "center",
   },
 });

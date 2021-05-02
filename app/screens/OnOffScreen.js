@@ -5,14 +5,18 @@ import AppText from "../components/AppText";
 import colors from "../config/colors";
 import fonts from "../config/fonts";
 import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from '@expo/vector-icons';
+import { FontAwesome5 } from "@expo/vector-icons";
 
 import AppTable from "../components/AppTable";
+import AppHeader from "../components/AppHeader";
+import { FontAwesome } from '@expo/vector-icons';
 
-import { FontAwesome5 } from "@expo/vector-icons";
 
 function OnOffScreen({ navigation }) {
 
   const [flashMessage, setMessage] = useState('Reponse du Serveur');
+  const [powerState,setPowerState] = useState(0);
 
   let table = {
     tableHead: ["Date", "Durée (h)"],
@@ -26,23 +30,12 @@ function OnOffScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <AppText
-        style={{
-          position: "relative",
-          top: 80,
-          fontFamily: fonts.RalewayM,
-          fontSize: 30,
-        }}
-      >
-         <FontAwesome5 name="home" size={24} color="black" /> Accueil({flashMessage})
-      </AppText>
+
+      <AppHeader navigation={navigation} />
 
       <View style={styles.onOff}>
-        <TouchableOpacity style={[styles.button, { backgroundColor: "red" }]} onPress={() => fonctionOn(setMessage)}>
-          <Text style={styles.title}>ON Prise</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, { backgroundColor: "green" }]} onPress={() => fonctionOff(setMessage)}>
-          <Text style={styles.title}>OFF Prise</Text>
+        <TouchableOpacity style={[styles.button, { backgroundColor: (powerState === 1 )? "green":'red' }]} onPress={() => switchKey(powerState, setPowerState, setMessage)}>
+        <FontAwesome name="power-off" size={130} color="white" />
         </TouchableOpacity>
       </View>
       <View style={styles.table}>
@@ -53,19 +46,6 @@ function OnOffScreen({ navigation }) {
         </AppText>
         <AppTable tableHead={table.tableHead} tableData={table.tableData} />
       </View>
-
-      <TouchableOpacity
-        style={styles.statContainer}
-        onPress={() => navigation.navigate("EnergyScreen")}
-      >
-        <Text style={styles.statText}>Statistiques</Text>
-        <AntDesign name="caretright" size={30} color={colors.black} />
-      </TouchableOpacity>
-
-      <AppControl
-        navigation={navigation}
-        previousScreen="WelcomeScreen"
-      />
     </View>
   );
 }
@@ -73,6 +53,7 @@ function OnOffScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop:70,
     backgroundColor: colors.white,
     flexDirection: "column",
     alignItems: "center",
@@ -85,17 +66,15 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 100,
     position: "absolute",
-    top: 150,
-    borderBottomWidth: 2,
-    borderBottomColor: "#ccc",
+    top: 250,
   },
   button: {
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 5,
+    borderRadius: 75,
     padding: 8,
-    width: 120,
-    height: 60,
+    width: 150,
+    height: 150,
   },
   title: {
     color: colors.white,
@@ -112,32 +91,38 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 310,
     position: "absolute",
-    top: 260,
+    top: 460,
+  },
+  header:{
+    width:'100%',
+    flexDirection:'row',
+    justifyContent:'space-evenly',
+    position:'relative',
+    top:80,
+    left:0,
+    paddingBottom:10,
     borderBottomWidth: 2,
     borderBottomColor: "#ccc",
   },
-  statContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    position: "absolute",
-    top: 600,
-    height: 60,
-    backgroundColor: colors.btnColor,
-    borderRadius: 2,
-  },
-  statText: {
-    fontFamily: fonts.RalewayL,
-    fontSize: 25,
-    top: -5,
-  },
+  headText:{
+    fontFamily:fonts.RalewayM,
+    fontSize:16,
+    
+  }
 });
 
 export default OnOffScreen;
 
-
+function switchKey (powerState, setPowerState, setMessage) {
+    if(powerState === 0){
+      fonctionOn(setMessage);
+      setPowerState(1);
+    }
+    else{
+      fonctionOff(setMessage);
+      setPowerState(0);
+    }
+}
 
 function fonctionOn(setMessage) {
   const xhttp1 = new XMLHttpRequest();
