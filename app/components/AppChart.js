@@ -33,7 +33,7 @@ function actualiser(setDataX, setDataY) {
         x = Number(obj.feeds[i].field1);
         y1 = obj.feeds[i].created_at.split("T");
         y2 = y1[1].split(":");
-        y = Number(String(y2[0]) + String(y2[1]));
+        y = [String(y2[0]), String(y2[1])];
         DataX.push(y);
         DataY.push(x);
       }
@@ -75,6 +75,7 @@ function AChart({ title,navigation }) {
         yAxisLabel=""
         yAxisSuffix=""
         yAxisInterval={1} // optional, defaults to 1
+        formatXLabel={(Y) => String(Y[0]+'h'+Y[1]) }
         chartConfig={{
           backgroundColor: "#00ff00",
           backgroundGradientFrom: "#40ff40",

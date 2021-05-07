@@ -13,10 +13,11 @@ import AppHeader from "../components/AppHeader";
 import { FontAwesome } from '@expo/vector-icons';
 
 
+
 function OnOffScreen({ navigation }) {
 
-  const [flashMessage, setMessage] = useState('Reponse du Serveur');
-  const [powerState,setPowerState] = useState(0);
+  const [waitRed,setWaitRed] = useState(false);
+  const [waitGreen,setWaitGreen] = useState(false);
 
   let table = {
     tableHead: ["Date", "Durée (h)"],
@@ -34,7 +35,14 @@ function OnOffScreen({ navigation }) {
       <AppHeader navigation={navigation} />
 
       <View style={styles.onOff}>
-        <TouchableOpacity style={[styles.button, { backgroundColor: (powerState === 1 )? "green":'red' }]} onPress={() => switchKey(powerState, setPowerState, setMessage)}>
+        <TouchableOpacity 
+        style={[styles.button,{ backgroundColor : waitGreen ? '#FAD201':colors.btnColor}]} 
+        onPress={() =>  switchOn(setWaitGreen)}>
+        <FontAwesome name="power-off" size={130} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity 
+        style={[styles.button, { backgroundColor: waitRed ? '#FAD201': 'red' }]} 
+        onPress={() => switchOff(setWaitRed)}>
         <FontAwesome name="power-off" size={130} color="white" />
         </TouchableOpacity>
       </View>
@@ -59,6 +67,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   onOff: {
+    zIndex: 3,
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",
@@ -113,34 +122,30 @@ const styles = StyleSheet.create({
 
 export default OnOffScreen;
 
-function switchKey (powerState, setPowerState, setMessage) {
-    if(powerState === 0){
-      fonctionOn(setMessage);
-      setPowerState(1);
+   function switchOn(setWaitGreen) {
+    setWaitGreen(true)
+    const fetchNow = function() { fetch("https://api.thingspeak.com/update?api_key=NS8W5PWJY92J9436&field1=1")
+      .then(response =>  {return response.text()})
+      .then(function(text){
+          console.log(text);
+          if(text == 0)
+           fetchNow();
+      });
     }
-    else{
-      fonctionOff(setMessage);
-      setPowerState(0);
-    }
+    fetchNow();
+    setTimeout( () => setWaitGreen(false) , 14000)
 }
 
-function fonctionOn(setMessage) {
-  const xhttp1 = new XMLHttpRequest();
-  xhttp1.open("GET", "https://api.thingspeak.com/update?api_key=NS8W5PWJY92J9436&field1=1");
-  xhttp1.send();
-  xhttp1.onreadystatechange = (e) => {
-    setMessage(xhttp1.responseText)
-    console.log(xhttp1.responseText)
-  }
-  console.log('ON');
+async function switchOff(setWaitRed) {
+  setWaitRed(true)
+  const fetchNow = function() { fetch("https://api.thingspeak.com/update?api_key=NS8W5PWJY92J9436&field1=0")
+  .then(response =>  {return response.text()})
+  .then(function(Entier){
+      console.log(Entier);
+      if(Entier == 0)
+       fetchNow();
+  });
 }
-function fonctionOff(setMessage) {
-  const xhttp2 = new XMLHttpRequest();
-  xhttp2.open("GET", "https://api.thingspeak.com/update?api_key=NS8W5PWJY92J9436&field1=0");
-  xhttp2.send();
-  xhttp2.onreadystatechange = (e) => {
-    setMessage(xhttp2.responseText)
-    console.log(xhttp2.responseText)
-  }
-  console.log('OFF');
+fetchNow();
+setTimeout( () => setWaitRed(false) , 14000)
 }

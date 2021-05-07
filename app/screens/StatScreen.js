@@ -16,15 +16,13 @@ function StatScreen({
 }) {
   return (
     <View style={styles.container}>
-      <AppHeader navigation={navigation} />
 
       <View style={styles.now}>
         <AppStatNow
           title={title}
           DataNow={DataNow}
           navigation={navigation}
-          nextScreen={nextScreen}
-          previousScreen={previousScreen}
+    
         />
       </View>
 
@@ -40,7 +38,8 @@ const styles = StyleSheet.create({
         flex:1,
         flexDirection:'column',
         alignItems:'center',
-        marginTop:70,
+        marginTop:150,
+      
     },
     now:{
         flex:2,

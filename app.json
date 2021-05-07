@@ -1,34 +1,37 @@
 {
-  "expo": {
-    "name": "smartPlugExpo",
-    "slug": "smartPlugExpo",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./app/assets/icon.png",
-    "splash": {
-      "image": "./app/assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./app/assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
-    },
-    "web": {
-      "favicon": "./app/assets/favicon.png"
-    },
-    "description": "mobile phone app that controls an receives data from a smart plug using http requests",
-    "githubUrl": "https://github.com/farihane-redouan/SmartPlugExpoProject"
+    "expo": {
+      "name": "smartPlugExpo",
+      "slug": "smartPlugExpo",
+      "version": "1.0.0",
+      "orientation": "portrait",
+      "icon": "./app/assets/icon.png",
+      "splash": {
+        "image": "./app/assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
+      },
+      "updates": {
+        "fallbackToCacheTimeout": 0
+      },
+      "assetBundlePatterns": [
+        "**/*"
+      ],
+      "ios": {
+        "supportsTablet": true
+      },
+      "android": {
+        "adaptiveIcon": {
+          "foregroundImage": "./app/assets/adaptive-icon.png",
+          "backgroundColor": "#FFFFFF"
+        },
+        "package": "com.gep.Redouane",
+        "versionCode": 1
+      },
+      "web": {
+        "favicon": "./app/assets/favicon.png"
+      },
+      "description": "mobile phone app that controls an receives data from a smart plug using http requests",
+      "githubUrl": "https://github.com/farihane-redouan/SmartPlugExpoProject"
+    }
   }
-}
+  

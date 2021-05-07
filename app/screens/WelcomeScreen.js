@@ -24,7 +24,7 @@ function WelcomeScreen({ navigation }) {
       <Text style={styles.BtnText}> Config est faite</Text>
       </TouchableOpacity>
       <TouchableOpacity style={[styles.Done,{backgroundColor:'#d00'}]}  onPress={() => navigation.navigate("PlugingScreen")}>
-      <Text style={[styles.BtnText, {color:'#fff'}]}>Pas encore</Text>
+      <Text style={[styles.BtnText, {color:colors.white}]}>Pas encore</Text>
       </TouchableOpacity>
       </View>
     </View>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
      alignItems:'center'
    },
    Done:{
-    backgroundColor:'#0e0',
+    backgroundColor:colors.btnColor,
         borderRadius:15,
         padding:8,
         width:170,

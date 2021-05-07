@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 
-import { View, StyleSheet, Alert, Picker } from "react-native";
+import { View, StyleSheet, Alert, Picker, TextInput } from "react-native";
 
 import AppButton from "../components/AppButton";
 import AppControl from "../components/AppControl";
 import AppHeading from "../components/AppHeading";
 import AppText from "../components/AppText";
-import AppTextInput from "../components/AppTextInput";
 
 import colors from "../config/colors";
 
 function WifiScreen({ navigation }) {
-  const [SSID, setSSID] = useState("SSID1");
-  const [password, onChangePass] = useState(null);
-  const [SSIDArray, setSSIDArray] = useState(["Identifiant WI-FI"]);
+  const [SSID, setSSID] = useState();
+  const [password, onChangePass] = useState();
+  const [SSIDArray, setSSIDArray] = useState(['Mes Réseau Wi-Fi']);
 
   return (
     <View style={styles.container}>
@@ -22,7 +21,7 @@ function WifiScreen({ navigation }) {
         Scannez puis choisissez votre réseau Wi-Fi et entrez son mot de passe.
       </AppText>
      
-        <View style={{ position: "absolute", top: 400, flex:1, }}>
+        <View style={{ position: "absolute", top: 350, flex:1, }}>
           <View style={styles.picker}>
             <Picker selectedValue={SSID} onValueChange={setSSID} mode="dialog">
               {SSIDArray.map((ssid, k) => (
@@ -30,7 +29,15 @@ function WifiScreen({ navigation }) {
               ))}
             </Picker>
           </View>
-          <AppTextInput />
+    <TextInput
+                
+                onChangeText={onChangePass}
+                placeholderTextColor={"#00000055"}
+                style={styles.password}
+                placeholder='MOT DE PASSE'
+                autoCapitalize="none"
+                value={password}
+            />
         </View>
      
       <AppButton
@@ -42,11 +49,9 @@ function WifiScreen({ navigation }) {
       <AppButton
         title="Connecter"
         style={{ top: 650 }}
-        // onPress={submitForm.bind(this, SSID, password)}
-        onPress={() => navigation.navigate('OnOffScreen')}
+         onPress={submitForm.bind(this, SSID, password,navigation)}
       />
 
-      <AppControl navigation={navigation} previousScreen="AccessPScreen" />
     </View>
   );
 }
@@ -63,12 +68,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
   },
+  password: {
+    height: 50,
+    width: 300,
+    marginTop: 10,
+    paddingLeft: 12,
+    height: 50,
+    width: 300,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
 });
 
 export default WifiScreen;
 
 const ESPWIFIAlert = () =>
-  Alert.alert("Consigne", "SVP connecter au Reseau WIFI-ESP", [
+  Alert.alert("Consigne", "SVP connecter au Réseau SmartPlug-GEP", [
     { text: "OUI", onPress: () => console.log("OUI Pressed") },
   ]);
 const NOWIFIAlert = () =>
@@ -77,35 +92,28 @@ const NOWIFIAlert = () =>
     "Pas De Réseau sans fils Détecté, Essayer une Autre Fois",
     [{ text: "OUI", onPress: () => console.log("OUI Pressed") }]
   );
-const AnswerConnectionAlert = (ReponseDescription) =>
+const AnswerConnectionAlert = (ReponseDescription, navigation) =>
   Alert.alert("Reponse", ReponseDescription, [
-    { text: "OUI", onPress: () => console.log("OUI Pressed") },
+    { text: "OUI", onPress: () => navigation.push("OnOffScreen") },
   ]);
+
 //Cette fonction envoie une requête http (/setting) au point accès aui contient le SSID et Mot de passe
 // entrés par l'utilisateur. la réponse et l'affirmation ou non de  la connection avec le WIFI.
-async function submitForm(id, password) {
+async function submitForm(id, password, navigation) {
   //const xhttp2 = new XMLHttpRequest();
   id = id.replace(/ /g, "+");
-  let url = "http://192.168.4.1/setting?ssid=" + id + "&pass=" + password;
+  let url = "http://192.168.4.1/setting?ssid=" + id + "&pass=" + String(password);
   if (id === "" && password === "") url = "http://192.168.4.1/setting";
   const response = await fetch(url);
-  //xhttp2.open("GET", url);
-  //xhttp2.send();
   console.log(url);
   let ReponseDescription = await response.text();
-  // xhttp2.onreadystatechange = (e) => {
-  //     console.log(xhttp2.responseText);
-  //     ReponseDescription = xhttp2.responseText;
-  // }
-
-  AnswerConnectionAlert(ReponseDescription);
-  
+  AnswerConnectionAlert(ReponseDescription, navigation);
 }
-const getData = async () => {
-  const response = await fetch("https://reqres.in/api/user/2");
-  const data = await response.text();
-  console.log(data, typeof data);
-};
+// const getData = async () => {
+//   const response = await fetch("https://reqres.in/api/user/2");
+//   const data = await response.text();
+//   console.log(data, typeof data);
+// };
 
 //cette fonction envoie une requête http (/) au point accès
 // et répond par la liste des réseaux sans fils dans les environs.

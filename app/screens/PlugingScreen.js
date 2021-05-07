@@ -14,14 +14,13 @@ function PlugingScreen({ navigation }) {
     <View style={styles.container}>
       <AppHeading>Brancher Smart Plug</AppHeading>
       <AppText>
-        Brancher votre Smart Plug. Appuyer sur le button Power On. si le Led
+        Brancher votre Smart Plug. Appuyer sur le button Power On. si la Led
         n'est pas allumer.
       </AppText>
       <View style={styles.imgContainer}>
       <Image style={styles.img} source={require('../assets/Plug.webp')}/>
       </View>
-      <AppButton title="suivant" onPress={() => navigation.navigate('ConnectScreen')}/>
-      <AppControl navigation={navigation} nextScreen="ConnectScreen" previousScreen ="WelcomeScreen"/>
+      <AppButton title="suivant" onPress={() => navigation.navigate('AccessPScreen')}/>
     </View>
   );
 }

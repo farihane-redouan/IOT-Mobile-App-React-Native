@@ -2,7 +2,7 @@ let colors ={
     white:'#fff',
     black:'#000',
     bgColor:'#358597', //"#4682b4"
-    btnColor:'#0e0', //'#2266eebb'
+    btnColor:'#0b0', //'#2266eebb'
     btnTextColor:'#fff',
     bgColor2: "#EC449B", /*Bg Colors to choice from */
     bgColor3: "#DB4437",

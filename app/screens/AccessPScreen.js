@@ -12,11 +12,10 @@ function AccessPScreen({ navigation }) {
     <View style={styles.container}>
       <AppHeading > Le prise est détecté</AppHeading>
       <AppText>
-        Connectez-vous au wi-fi de l'appareil, puis revenez à l'application
+        Connectez-vous au wi-fi SmartPlug-GEP, puis revenez à l'application
       </AppText>
-      <Wifi/>
-      <AppButton title="Suivant"/>
-      <AppControl navigation={navigation} nextScreen="WifiScreen" previousScreen="ConnectScreen" />
+      
+      <AppButton title="Suivant" onPress={() => navigation.navigate('WifiScreen')}/>
     </View>
   );
 }

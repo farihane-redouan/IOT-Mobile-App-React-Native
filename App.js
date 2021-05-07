@@ -37,7 +37,7 @@ const Stack = createStackNavigator();
 const StackNavigator = () => (
   <Stack.Navigator
     screenOptions={{ headerShown: false }}
-    initialRouteName="OnOffScreen"
+    initialRouteName="WelcomeScreen"
   >
     <Stack.Screen name="LoginForm" component={LoginForm} />
     <Stack.Screen name="MyCharts" component={MyCharts} />
@@ -75,4 +75,3 @@ const App = () => {
 };
 
 export default App;
-
