@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  Button,
   Picker,
   StyleSheet,
-  Text,
-  TextInput,
   View,
 } from "react-native";
 import colors from "../config/colors";
-import fonts from "../config/fonts";
-import AppTextInput from "./AppTextInput";
 
 function SSIDPicker({SSID,setSSID,password,onChangePass}) {
   

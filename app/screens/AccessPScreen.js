@@ -1,10 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import AppButton from "../components/AppButton";
-import AppControl from "../components/AppControl";
 import AppHeading from "../components/AppHeading";
 import AppText from "../components/AppText";
-import Wifi from "../components/Wifi";
 import colors from "../config/colors";
 
 function AccessPScreen({ navigation }) {

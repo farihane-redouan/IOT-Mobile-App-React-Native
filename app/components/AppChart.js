@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Dimensions, StyleSheet } from "react-native";
+import { View, Dimensions, StyleSheet } from "react-native";
 import {
   LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
 } from "react-native-chart-kit";
 
 import { EvilIcons } from "@expo/vector-icons";
@@ -47,7 +42,7 @@ function actualiser(setDataX, setDataY) {
 }
 
 function AChart({ title,navigation }) {
-  const [DataX, setDataX] = useState([1, 1, 1, 1, 1, 1, 1]);
+  const [DataX, setDataX] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [DataY, setDataY] = useState([0, 0, 0, 0, 0, 0, 0]);
 
   useEffect(() => {

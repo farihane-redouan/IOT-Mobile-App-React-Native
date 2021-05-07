@@ -1,12 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 
 
 import AppButton from "../components/AppButton";
 import AppHeading from "../components/AppHeading";
 import AppText from "../components/AppText";
 
-import AppControl from "../components/AppControl";
 import colors from "../config/colors";
 
 function PlugingScreen({ navigation }) {

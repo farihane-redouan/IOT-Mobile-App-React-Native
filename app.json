@@ -1,7 +1,7 @@
 {
     "expo": {
-      "name": "smartPlugExpo",
-      "slug": "smartPlugExpo",
+      "name": "martPlug-GEP",
+      "slug": "smartPlug-GEP",
       "version": "1.0.0",
       "orientation": "portrait",
       "icon": "./app/assets/icon.png",
@@ -21,7 +21,7 @@
       },
       "android": {
         "adaptiveIcon": {
-          "foregroundImage": "./app/assets/adaptive-icon.png",
+          "foregroundImage": "./app/assets/icon.png",
           "backgroundColor": "#FFFFFF"
         },
         "package": "com.gep.Redouane",

@@ -1,11 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import AppControl from "../components/AppControl";
+import { View, StyleSheet } from "react-native";
 import AppStatNow from "../components/AppStatNow";
 import AChart from "../components/AppChart";
 
-import { FontAwesome5 } from "@expo/vector-icons";
-import AppHeader from "../components/AppHeader";
 
 function StatScreen({
   navigation,

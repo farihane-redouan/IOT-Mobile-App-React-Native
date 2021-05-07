@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import AppControl from "../components/AppControl";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
 import fonts from "../config/fonts";
-import { AntDesign } from "@expo/vector-icons";
-import { Entypo } from '@expo/vector-icons';
-import { FontAwesome5 } from "@expo/vector-icons";
-
 import AppTable from "../components/AppTable";
 import AppHeader from "../components/AppHeader";
 import { FontAwesome } from '@expo/vector-icons';

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
 
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import PlugingScreen from "./app/screens/PlugingScreen";
@@ -11,7 +10,6 @@ import EnergyScreen from "./app/screens/EnergyScreen";
 import PowerScreen from "./app/screens/PowerScreen";
 import VoltageScreen from "./app/screens/VoltageScreen";
 import CurrentScreen from "./app/screens/CurrentScreen";
-import TestScreen from "./app/screens/TestScreen";
 import  MyCharts  from "./app/MyCharts";
 
 //Chargement des fonts externs:
@@ -30,7 +28,6 @@ const fetchFont = () => {
 // Navigation
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import StatScreen from "./app/screens/StatScreen";
 import LoginForm from "./app/LoginForm";
 
 const Stack = createStackNavigator();
